@@ -1,0 +1,38 @@
+{
+  "name": "url-builder",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtomicNoggin/url-builder.git"
+  },
+  "description": "Builds complete URLs from a URLPattern by substituting named group values",
+  "keywords": [
+    "JavaScript",
+    "URLPattern",
+    "url",
+    "routing"
+  ],
+  "license": "Apache-2.0",
+  "author": "Patrick Denny",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
