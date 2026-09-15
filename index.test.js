@@ -119,4 +119,18 @@ describe("URLBuilder", () => {
     assert.deepEqual([...remainder.keys()], ["name"]);
     assert.equal(remainder.get("name"), "Ada");
   });
+
+  test("test returns true when required named groups are satisfied", () => {
+    const builder = new URLBuilder("/users/:id", "https://example.com");
+    assert.equal(builder.test({ id: "42" }), true);
+    assert.equal(builder.test({}), false);
+  });
+
+  test("test accepts a FormData instance", () => {
+    const builder = new URLBuilder("/users/:id", "https://example.com");
+    const formData = new FormData();
+    formData.append("id", "42");
+    assert.equal(builder.test(formData), true);
+    assert.equal(builder.test(new FormData()), false);
+  });
 });

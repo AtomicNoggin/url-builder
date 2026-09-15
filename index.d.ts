@@ -26,6 +26,9 @@ export declare class URLBuilder {
     remainder: URLBuilderValues;
   };
   execWithRemainder(values: FormData): { url: string; remainder: FormData };
+
+  /** true if every required named group has a matching value */
+  test(values?: URLBuilderValues | FormData): boolean;
 }
 
 export default URLBuilder;

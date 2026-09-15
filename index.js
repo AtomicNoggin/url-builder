@@ -299,6 +299,19 @@ export class URLBuilder {
       : remainderFromObject(Object(values), this.#names);
     return { url, remainder };
   }
+  /**
+   * @param {Record<string, string | number | Array<string | number>> | FormData} values named group values
+   * @returns {boolean} true if every required named group has a matching value
+   */
+  test(values = {}) {
+    try {
+      this.exec(values);
+      return true;
+    } catch (error) {
+      if (error instanceof URLBuilderError) return false;
+      throw error;
+    }
+  }
 }
 
 export default URLBuilder;

@@ -76,3 +76,16 @@ const { url, remainder } = builder.execWithRemainder(formData);
 
 `remainder` matches the input type: a plain object in, a plain object out; a
 `FormData` in, a `FormData` out.
+
+## test
+
+`test(values)` returns `true` if `exec(values)` would succeed, or `false` if a
+required named group has no matching value, without throwing:
+
+```js
+const builder = new URLBuilder("/users/:id", "https://example.com");
+
+builder.test({ id: "42" }); // true
+builder.test({}); // false
+```
+
