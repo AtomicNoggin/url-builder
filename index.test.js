@@ -3,6 +3,38 @@ import { describe, test } from "node:test";
 import URLBuilder, { URLBuilderError } from "./index.js";
 
 describe("URLBuilder", () => {
+  test("accepts no constructor arguments and creates an empty pattern", () => {
+    const builder = new URLBuilder();
+    assert.equal(builder.exec({}), "");
+    assert.equal(builder.hasNamedValue("missing"), false);
+  });
+
+  test("throws when a single string pattern is supplied without a base URL", () => {
+    assert.throws(() => new URLBuilder("/users/:id"), TypeError);
+  });
+
+  test("throws when a string pattern is paired with an explicit undefined base URL", () => {
+    assert.throws(() => new URLBuilder("/users/:id", undefined), TypeError);
+  });
+
+  test("throws when the first argument is undefined and a base URL is supplied", () => {
+    assert.throws(() => new URLBuilder(undefined, "https://example.com"), TypeError);
+  });
+
+  test("accepts a single URLPattern instance", () => {
+    const pattern = new URLPattern("/users/:id", "https://example.com");
+    const builder = new URLBuilder(pattern);
+    assert.equal(
+      builder.exec({ id: "42" }),
+      "https://example.com/users/42",
+    );
+  });
+
+  test("throws when a URLPattern instance is paired with an explicit undefined second argument", () => {
+    const pattern = new URLPattern("/users/:id", "https://example.com");
+    assert.throws(() => new URLBuilder(pattern, undefined), TypeError);
+  });
+
   test("builds a URL from a pathname pattern and baseURL", () => {
     const builder = new URLBuilder("/users/:id", "https://example.com");
     assert.equal(

@@ -5,7 +5,7 @@ A lightweight, zero dependency JS library that builds complete URLs from a
 substituting named group values back into the pattern.
 
 `URLBuilder` takes the exact same constructor arguments as `URLPattern`, so any
-pattern you already use for matching can also be used to build matching URLs.
+pattern you already use for matching can also be used to build matching URLs. You can also pass in an existing `URLPattern` instance that it will use to build matchin urls
 
 ## Usage
 

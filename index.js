@@ -175,7 +175,8 @@ function render(tokens, values, wildcardCounter, encode) {
         (next.modifier === "?" || next.modifier === "*")
       ) {
         const rendered = renderToken(next, values, wildcardCounter, encode);
-        out += rendered === "" ? token.value.slice(0, -1) : token.value + rendered;
+        out +=
+          rendered === "" ? token.value.slice(0, -1) : token.value + rendered;
         index++;
         continue;
       }
@@ -193,7 +194,11 @@ const valuesFromFormData = (formData) => {
   for (const name of new Set(formData.keys())) {
     const entries = formData
       .getAll(name)
-      .map((entry) => (typeof File !== "undefined" && entry instanceof File ? entry.name : entry));
+      .map((entry) =>
+        typeof File !== "undefined" && entry instanceof File
+          ? entry.name
+          : entry,
+      );
     values[name] = entries.length > 1 ? entries : entries[0];
   }
   return values;
@@ -229,8 +234,16 @@ const remainderFromFormData = (formData, knownNames) => {
 };
 
 function assembleURL(parts) {
-  const { protocol, username, password, hostname, port, pathname, search, hash } =
-    parts;
+  const {
+    protocol,
+    username,
+    password,
+    hostname,
+    port,
+    pathname,
+    search,
+    hash,
+  } = parts;
   let url = "";
   if (protocol) url += `${protocol}://`;
   if (username) {
@@ -254,7 +267,10 @@ export class URLBuilder {
   #tokens = {};
   #names = new Set();
   constructor(...args) {
-    const pattern = new URLPattern(...args);
+    const pattern =
+      args.length === 1 && args[0] instanceof URLPattern
+        ? args[0]
+        : new URLPattern(...args);
     for (const component of COMPONENTS) {
       const tokens = tokenize(pattern[component]);
       this.#tokens[component] = tokens;
@@ -292,7 +308,8 @@ export class URLBuilder {
    * @throws {URLBuilderError} if a required named group has no value
    */
   execWithRemainder(values = {}) {
-    const isFormData = typeof FormData !== "undefined" && values instanceof FormData;
+    const isFormData =
+      typeof FormData !== "undefined" && values instanceof FormData;
     const url = this.exec(values);
     const remainder = isFormData
       ? remainderFromFormData(values, this.#names)

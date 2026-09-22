@@ -16,7 +16,7 @@ export declare class URLBuilder {
     baseURL: string,
     options?: URLPatternOptions,
   );
-
+  constructor(input: URLPattern);
   /** builds a complete URL string, substituting named group values into the pattern */
   exec(values?: URLBuilderValues | FormData): string;
 

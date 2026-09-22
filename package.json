@@ -1,9 +1,9 @@
 {
-  "name": "url-builder",
+  "name": "url-pattern-builder",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtomicNoggin/url-builder.git"
+    "url": "git+https://github.com/AtomicNoggin/url-pattern-builder.git"
   },
   "description": "Builds complete URLs from a URLPattern by substituting named group values",
   "keywords": [
