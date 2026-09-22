@@ -89,3 +89,18 @@ builder.test({ id: "42" }); // true
 builder.test({}); // false
 ```
 
+## hasNamedValue
+
+`hasNamedValue(name)` returns `true` if the pattern declares a named group
+with that name, including generated indexes for unnamed wildcards (`"0"`,
+`"1"`, ...):
+
+```js
+const builder = new URLBuilder("/users/:id/files/*", "https://example.com");
+
+builder.hasNamedValue("id"); // true
+builder.hasNamedValue("*"); // true, the unnamed wildcard
+builder.hasNamedValue("0"); // true, the unnamed wildcard
+builder.hasNamedValue("missing"); // false
+```
+

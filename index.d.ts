@@ -29,6 +29,9 @@ export declare class URLBuilder {
 
   /** true if every required named group has a matching value */
   test(values?: URLBuilderValues | FormData): boolean;
+
+  /** true if the pattern declares a named group with this name */
+  hasNamedValue(name: string): boolean;
 }
 
 export default URLBuilder;

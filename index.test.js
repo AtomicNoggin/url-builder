@@ -133,4 +133,20 @@ describe("URLBuilder", () => {
     assert.equal(builder.test(formData), true);
     assert.equal(builder.test(new FormData()), false);
   });
+
+  test("hasNamedValue reports named groups declared by the pattern", () => {
+    const builder = new URLBuilder(
+      "/users/:id/files/:path*",
+      "https://example.com",
+    );
+    assert.equal(builder.hasNamedValue("id"), true);
+    assert.equal(builder.hasNamedValue("path"), true);
+    assert.equal(builder.hasNamedValue("missing"), false);
+  });
+
+  test("hasNamedValue reports wildcard indexes", () => {
+    const builder = new URLBuilder("/files/*", "https://example.com");
+    assert.equal(builder.hasNamedValue("*"), true);
+    assert.equal(builder.hasNamedValue("1"), false);
+  });
 });

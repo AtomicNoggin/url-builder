@@ -312,6 +312,14 @@ export class URLBuilder {
       throw error;
     }
   }
+  /**
+   * @param {string} name  the name of the named group to check for existence. Use "*" to check for the wildcard group.
+   * @returns {boolean} true if the named value exists, false otherwise
+   */
+  hasNamedValue(name) {
+    if (name === "*") name = "0";
+    return this.#names.has(name);
+  }
 }
 
 export default URLBuilder;
